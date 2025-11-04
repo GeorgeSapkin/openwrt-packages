@@ -6,7 +6,7 @@ on:
 jobs:
   formalities:
     name: Test Formalities
-    uses: openwrt/actions-shared-workflows/.github/workflows/formal.yml@main
+    uses: georgesapkin/openwrt-actions-shared-workflows/.github/workflows/formal.yml@formal-check-for-github-sob-test
 
   build:
     name: Feeds Package Test Build
