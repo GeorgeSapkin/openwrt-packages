@@ -9,7 +9,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=sed
 PKG_VERSION:=4.9
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.xz
 PKG_SOURCE_URL:=@GNU/sed
@@ -34,10 +34,10 @@ define Package/sed
 endef
 
 define Package/sed/description
-sed (stream editor) is a non-interactive command-line text editor. sed is commonly 
-used to filter text, i.e., it takes text input, performs some operation (or set of 
-operations) on it, and outputs the modified text. sed is typically used for 
-extracting part of a file using pattern matching or substituting multiple 
+sed (stream editor) is a non-interactive command-line text editor. sed is commonly
+used to filter text, i.e., it takes text input, performs some operation (or set of
+operations) on it, and outputs the modified text. sed is typically used for
+extracting part of a file using pattern matching or substituting multiple
 occurrences of a string within a file.
 endef
 
