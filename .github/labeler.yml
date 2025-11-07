@@ -1,0 +1,64 @@
+"GitHub/CI":
+- changed-files:
+  - any-glob-to-any-file:
+    - ".github/**"
+
+"admin":
+- changed-files:
+  - any-glob-to-any-file:
+    - "admin/**"
+"devel":
+- changed-files:
+  - any-glob-to-any-file:
+    - "devel/**"
+"fonts":
+- changed-files:
+  - any-glob-to-any-file:
+    - "fonts/**"
+"ipv6":
+- changed-files:
+  - any-glob-to-any-file:
+    - "ipv6/**"
+"kernel":
+- changed-files:
+  - any-glob-to-any-file:
+    - "kernel/**"
+"lang":
+- changed-files:
+  - any-glob-to-any-file:
+    - "lang/**"
+"libs":
+- changed-files:
+  - any-glob-to-any-file:
+    - "libs/**"
+"mail":
+- changed-files:
+  - any-glob-to-any-file:
+    - "mail/**"
+"multimedia":
+- changed-files:
+  - any-glob-to-any-file:
+    - "multimedia/**"
+"net":
+- changed-files:
+  - any-glob-to-any-file:
+    - "net/**"
+"sound":
+- changed-files:
+  - any-glob-to-any-file:
+    - "sound/**"
+"utils":
+- changed-files:
+  - any-glob-to-any-file:
+    - "utils/**"
+
+# branches
+"master":
+- base-branch:
+  - "master"
+"OpenWrt 23.05 (end of support)":
+- base-branch:
+  - "openwrt-23.05"
+"OpenWrt 24.10":
+- base-branch:
+  - "openwrt-24.10"
