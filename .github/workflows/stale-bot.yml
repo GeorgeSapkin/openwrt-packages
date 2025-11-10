@@ -1,0 +1,25 @@
+name: Mark and close stale issues and PRs
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+permissions:
+  actions: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-slim
+    steps:
+      - name: Mark and close PRs with formality issues
+        uses: actions/stale@v10
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          stale-pr-message: 'This PR is stale because it has been open for 7 days with no activity and has the "not following guidelines" label. It will be closed if no further activity occurs within 7 days.'
+          close-pr-message: 'This PR was closed because it has been staled for 7 days with no activity.'
+          days-before-stale: 1
+          days-before-close: 1
+          only-labels: 'not following guidelines'
+          stale-pr-label: 'stale'
