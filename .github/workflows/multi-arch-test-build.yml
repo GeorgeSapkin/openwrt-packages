@@ -8,6 +8,7 @@ jobs:
     name: Test Formalities
     uses: georgesapkin/openwrt-actions-shared-workflows/.github/workflows/formal.yml@formal-check-for-more-guideline-violations-test
     with:
+      exclude_weblate: true
       post_comment: true
 
   build:
