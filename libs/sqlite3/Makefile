@@ -55,7 +55,7 @@ define Package/libsqlite3
   $(call Package/sqlite3/Default)
   SECTION:=libs
   CATEGORY:=Libraries
-  DEPENDS:=+libpthread +zlib
+  DEPENDS:=+libpthread +zlib +(mips||mipsel):libatomic
   TITLE+= (library)
   ABI_VERSION:=0
 endef
@@ -74,7 +74,7 @@ define Package/sqlite3-cli
   $(call Package/sqlite3/Default)
   SECTION:=utils
   CATEGORY:=Utilities
-  DEPENDS := \
+  DEPENDS:=\
     +libsqlite3 \
     +SQLITE3_LIBEDIT:libedit \
     +SQLITE3_READLINE:libreadline
@@ -101,6 +101,10 @@ TARGET_CFLAGS += \
 	$(if $(CONFIG_SQLITE3_COLUMN_METADATA),-DSQLITE_ENABLE_COLUMN_METADATA) \
 	-DHAVE_EDITLINE=$(if $(CONFIG_SQLITE3_LIBEDIT),1,0) \
 	-DHAVE_READLINE=$(if $(CONFIG_SQLITE3_READLINE),1,0)
+
+ifeq ($(findstring mips,$(ARCH)),mips)
+  TARGET_LDFLAGS += -latomic
+endif
 
 CONFIGURE_ARGS := \
 	$(filter-out --target=% $(DISABLE_IPV6) $(DISABLE_NLS),$(CONFIGURE_ARGS)) \
