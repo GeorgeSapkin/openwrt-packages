@@ -1,16 +1,17 @@
 name: Test and Build
 
 on:
-  pull_request:
+  pull_request_target:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   formalities:
     name: Test Formalities
     uses: openwrt/actions-shared-workflows/.github/workflows/formal.yml@main
+    permissions:
+      pull-requests: write
     with:
       post_comment: true
 
