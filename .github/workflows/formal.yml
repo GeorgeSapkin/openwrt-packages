@@ -21,6 +21,63 @@ jobs:
     if: always()
 
     steps:
+      - name: Post status comment
+        uses: actions/github-script@v8
+        env:
+          RESULT: ${{ needs.formalities.result }}
+        with:
+          script: |
+            const result = process.env.RESULT;
+            const marker = "<!-- BUILD_LOOKUP -->";
+
+            const status = {
+              build: result === 'success',
+            };
+
+            const body = `Build info<!-- ${JSON.stringify(status)} -->\n${marker}`;
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const previousComment = comments.find(comment => comment.body.includes(marker));
+            let commentId = null;
+            if (previousComment != null) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: previousComment.id,
+                body: body,
+                });
+
+                commentId = previousComment.id;
+            } else {
+              const res = await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: body,
+              });
+
+              commentId = res?.id;
+            }
+
+            if (commentId != null) {
+              await github.graphql(`
+                mutation($input: MinimizeCommentInput!) {
+                  minimizeComment(input: $input) {
+                    clientMutationId
+                  }
+                }
+              `, {
+                input: {
+                  subjectId: commentId,
+                  classifier: "OUTDATED"
+                }
+              });
+            }
+
       - name: Add 'not following guidelines' label
         if: needs.formalities.result == 'failure'
         uses: buildsville/add-remove-label@v2.0.1

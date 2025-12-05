@@ -1,0 +1,55 @@
+name: Build Report
+
+on:
+  workflow_run:
+    workflows: ["Test and Build"]
+    types:
+      - completed
+
+jobs:
+  report:
+    name: Report Build Status
+    runs-on: ubuntu-slim
+    permissions:
+      # Required to list and update comments on pull requests
+      pull-requests: write
+    steps:
+      - name: Update build status comment
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const prs = context.payload.workflow_run.pull_requests;
+            if (!prs || prs.length === 0) {
+              console.log('No pull requests associated with this workflow run. Skipping comment update.');
+              return;
+            }
+            // Assuming the first PR is the relevant one
+            const prNumber = prs[0].number;
+
+            console.log(`Searching for bot comments in PR #${prNumber}`);
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+            });
+
+            const botCommentsWithMarker = comments.filter(comment =>
+              comment.user.type === 'Bot' && comment.body.includes('<!-- BUILD_LOOKUP -->')
+            );
+
+            if (botCommentsWithMarker.length === 0) {
+              console.log('No bot comments with the build marker found.');
+              return;
+            }
+
+            // Comments are ordered oldest to newest, so the last one is the latest.
+            const latestComment = botCommentsWithMarker[botCommentsWithMarker.length - 1];
+            const body = `Build info<!-- ${JSON.stringify({ build: false })} -->\n<!-- BUILD_LOOKUP -->`;
+
+            console.log(`Updating comment ${latestComment.id}`);
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: latestComment.id,
+              body,
+            });
