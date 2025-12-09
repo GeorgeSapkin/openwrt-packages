@@ -25,7 +25,7 @@ jobs:
         if: needs.formalities.result == 'success'
         env:
           # Token needs actions: write
-          TOKEN: ${{ secrets.FORMAL_TOKEN }}
+          TOKEN: ${{ secrets.DEFAULT_TOKEN }}
           API_URL: https://api.github.com/repos/${{ github.repository }}/actions/workflows/multi-arch-test-build.yml/dispatches
           BASE_REF: ${{ github.base_ref }}
           # Workflow is running in target context, so we need to get head ref
@@ -53,7 +53,7 @@ jobs:
         if: needs.formalities.result == 'failure'
         env:
           # Token needs actions: write
-          TOKEN: ${{ secrets.FORMAL_TOKEN }}
+          TOKEN: ${{ secrets.DEFAULT_TOKEN }}
           API_URL: https://api.github.com/repos/${{ github.repository }}/actions/workflows/check.yml/dispatches
           BASE_REF: ${{ github.base_ref }}
           # Workflow is running in target context, so we need to get head ref
