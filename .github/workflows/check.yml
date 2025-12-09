@@ -119,7 +119,7 @@ jobs:
           echo "PACKAGES=$PACKAGES" >> $GITHUB_ENV
 
       - name: Check package shape
-        uses: openwrt/gh-action-sdk@v10
+        uses: georgesapkin/openwrt-gh-action-sdk@entrypoint-make-build-optional
         env:
           ARCH: x86_64-${{ env.BRANCH }}
           BUILD: 0
