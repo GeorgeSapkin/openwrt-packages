@@ -27,4 +27,4 @@ jobs:
   build:
     name: Feeds Package Test Build
     needs: formalities
-    uses: openwrt/actions-shared-workflows/.github/workflows/multi-arch-test-build.yml@main
+    uses: georgesapkin/openwrt-actions-shared-workflows/.github/workflows/multi-arch-test-build.yml@multi-arch-test-build-remove-signing-test
