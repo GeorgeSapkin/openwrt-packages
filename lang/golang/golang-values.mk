@@ -123,6 +123,8 @@ unexport \
   GOBOOTSTRAP_TOOLEXEC
 
 
+GO_DEFAULT_VERSION:=1.25
+
 # GOOS / GOARCH
 
 go_arch=$(subst \
