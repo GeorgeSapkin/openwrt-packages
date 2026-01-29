@@ -100,15 +100,22 @@ endef
 define GoCompiler/Default/Install/Src
 	$(call GoCompiler/Default/Install/make-dirs,$(2),$(3))
 
-	$(call GoCompiler/Default/Install/install-share-data,$(1),$(2),$(3),lib)
-	$(call GoCompiler/Default/Install/install-share-data,$(1),$(2),$(3),misc)
-	$(call GoCompiler/Default/Install/install-share-data,$(1),$(2),$(3),src)
-	$(call GoCompiler/Default/Install/install-share-data,$(1),$(2),$(3),test)
+	$(LN) "../../share/go-$(3)/src" "$(2)/lib/go-$(3)/"
 
-	$(FIND) \
-		"$(2)/share/go-$(3)/src/" \
-		\! -type d -a \( -name "*.bat" -o -name "*.rc" \) \
-		-delete
+	$(INSTALL_DIR) "$(2)/share/go-$(3)/src"
+	( \
+		cd "$(1)/src" && \
+		$(FIND) . \
+			! -type d -a \
+			\( ! -ipath '*/testdata/*' -a ! -name '*_test.go' -a ! -name '*.bat' -a ! -name '*.rc' \) \
+			-print0 | \
+		cpio \
+			--make-directories \
+			--null \
+			--pass-through \
+			--unconditional \
+			"$(2)/share/go-$(3)/src/" \
+	)
 
 	if [ -d "$(1)/pkg/include" ]; then \
 		$(INSTALL_DIR) "$(2)/lib/go-$(3)/pkg" ; \
