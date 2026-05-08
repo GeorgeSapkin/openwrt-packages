@@ -22,8 +22,8 @@ PKG_LICENSE:=BSD-2-Clause
 PKG_LICENSE_FILES:=LICENSE
 PKG_CPE_ID:=cpe:/a:protobuf-c_project:protobuf-c
 
-HOST_BUILD_DEPENDS:=protobuf-legacy/host
-PKG_BUILD_DEPENDS:=protobuf-legacy
+HOST_BUILD_DEPENDS:=protobuf/host
+PKG_BUILD_DEPENDS:=protobuf
 
 CMAKE_INSTALL:=1
 CMAKE_SOURCE_SUBDIR:=build-cmake
