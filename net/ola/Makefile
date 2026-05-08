@@ -10,7 +10,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ola
 PKG_VERSION:=0.10.9
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=$(PKG_VERSION)
@@ -26,7 +26,7 @@ PKG_INSTALL:=1
 PKG_BUILD_PARALLEL:=1
 PKG_BUILD_FLAGS:=no-mips16
 
-HOST_BUILD_DEPENDS:=protobuf/host
+HOST_BUILD_DEPENDS:=protobuf-legacy/host
 PKG_BUILD_DEPENDS:=ola/host
 
 include $(INCLUDE_DIR)/host-build.mk
@@ -37,7 +37,7 @@ define Package/ola
   CATEGORY:=Network
   TITLE:=Open Lighting Architecture Daemon
   URL:=https://www.openlighting.org/
-  DEPENDS:=+protobuf +libftdi1 +libusb-1.0 +libuuid +libstdcpp +libpthread +librt +zlib +libncurses +liblo +libmicrohttpd
+  DEPENDS:=+protobuf-legacy +libftdi1 +libusb-1.0 +libuuid +libstdcpp +libpthread +librt +zlib +libncurses +liblo +libmicrohttpd
 endef
 
 define Package/ola/description

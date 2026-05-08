@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=podman
 PKG_VERSION:=5.8.2
-PKG_RELEASE:=1
+PKG_RELEASE:=2
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/containers/podman/archive/v$(PKG_VERSION)
@@ -13,7 +13,7 @@ PKG_LICENSE_FILES:=LICENSE
 PKG_MAINTAINER:=Oskari Rauta <oskari.rauta@gmail.com>
 PKG_CPE_ID:=cpe:/a:podman_project:podman
 
-PKG_BUILD_DEPENDS:=golang/host protobuf/host btrfs-progs
+PKG_BUILD_DEPENDS:=golang/host protobuf-legacy/host btrfs-progs
 PKG_BUILD_PARALLEL:=1
 PKG_BUILD_FLAGS:=no-mips16
 PKG_INSTALL:=1
